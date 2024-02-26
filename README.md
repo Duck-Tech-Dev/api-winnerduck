@@ -59,20 +59,21 @@ Users are able to:
 
 **Guest Perspective**
 
-Scans the QR code or enters the raffle ID to join the raffle.
+Scans the QR code -> `winnerduck.com/raffle/[id]`
+Goes to `winnerduck.com` and enters the raffle ID. Enter redirects to the raffle page.
 Can see the title of the raffle, description, and the prize.
 Fills the required information and joins the raffle.
 Cannot see any information about the raffle after joining, only the winner name after the raffle ends.
 
 **User Perspective**
 
-Goes to the user panel.
+Goes to the user panel: `winnerduck.com/panel`
 
 Can see the list of raffles created, ready to be used.
-Can start it and project it in the event.
+Can start it and project it in the event: `winnerduck.com/panel/raffle/[id]`
 
 Can see the list of previous raffles.
-Can click any previous raffle to see the details, participants, and winner name etc.
+Can click any previous raffle to see the details.
 Can download the information.
 
 Can create a new raffle.
