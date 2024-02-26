@@ -28,6 +28,17 @@ We might want to create an environment to make long-term raffles, where the part
 
 We can add different ways to earn points that will increase the chances to win the raffle, like sharing, inviting, liking, etc.
 
+**Ideas for Raffle System - 26.02.24**
+
+Two user control flows, one for guests and one for users.
+Guests are able to:
+- Enter raffles using information requested by the raffle creator (name, student ID, e-mail etc.).
+Users are able to:
+- Create raffles for others to join and participate
+	- Schedule raffle start/end times
+	- Edit raffle settings on the fly, postpone times
+
+Raffle participants are authenticated using the information requested by the raffle creator + IP address tracking & local storage (cookies).
 
 #### 2 - Quiz/Kahoot Alternative
 
