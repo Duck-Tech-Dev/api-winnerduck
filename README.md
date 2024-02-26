@@ -1,73 +1,113 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Raffle/Quiz/Survey Application for AI Students Club
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## What do we want?
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+We want to create an app that allows us to make raffles/draws among the participants to select a winner, and also have an environment to create mutiple answer/question type of quizzes where the participants will compete to get the highest score.
 
-## Description
+Main idea is to have a one app to collect every functionality that we can use in all kind of events, instead of using Google Forms, Survey Monkey, Kahoot etc.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Installation
 
-```bash
-$ yarn install
-```
+## What could it consist of?
 
-## Running the app
+This is an open place to write down ideas.
 
-```bash
-# development
-$ yarn run start
 
-# watch mode
-$ yarn run start:dev
+#### 1 - Raffle/Draw
 
-# production mode
-$ yarn run start:prod
-```
+**What is needed:**
 
-## Test
+Mostly for on-time events, where we want to select a winner among the participants, estimated to take around 5-10 minutes.
 
-```bash
-# unit tests
-$ yarn run test
+- An easy-to-use interface to add participants, might be an auto-generated QR code that redirects to enter personal data.
+- Open and transparent raffle/draw process to show the winner.
 
-# e2e tests
-$ yarn run test:e2e
+**Extra features:**
 
-# test coverage
-$ yarn run test:cov
-```
+We might want to create an environment to make long-term raffles, where the participants can enter the raffle at the given time and the winner will be selected later.
 
-## Support
+We can add different ways to earn points that will increase the chances to win the raffle, like sharing, inviting, liking, etc.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
+#### 2 - Quiz/Kahoot Alternative
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+This one is a bit more complex, since the users has to be connected to the app in real time.
 
-## License
+... (to be continued)
 
-Nest is [MIT licensed](LICENSE).
+
+#### 3 - Survey/Forms
+
+Since we have come along this far, we might want to add a survey functionality to replace Google Forms as well as a bonus.
+
+
+
+## What do we need?
+
+- A fast and reliable database we could use in long-term
+- Up and running server all the time
+- Simple front-end for users
+- Admin panel to manage the events
+- A good UI/UX design both for the web and mobile
+
+
+
+#### Database
+
+For starters we could use Firebase since we already used it before and it's easy to use.
+
+
+#### Server
+
+We need to find a good server that can handle the traffic. The most crowded situation would be a quiz with up to 1000 participants at the same time.
+
+
+#### User Front End
+
+Since the app will be used in events, we cannot expect everyone to download the app. We can make a nice web interface that can be used in mobile devices as well.
+
+For both users and admin panel, we could use Next JS.
+
+Users should be able to:
+- Enter the raffle
+    - See the raffle process, if they won or not
+- Enter the quiz
+    - See how many participants are in the quiz
+    - See how many questions are left
+    - See the time left
+    - See their score
+    - See the highest/top 5 etc.
+    - See the correct answers after the everyone answered
+- Fill the survey
+    - See the questions
+    - Fill the answers
+
+#### Admin Panel
+
+Admins should be able to:
+- Create raffles
+    - See the participants
+    - Turn on/off the entry
+    - Select the winner
+- Create quizzes (we can go completely Kahoot like)
+    - Add questions
+        - Single choice
+        - Multiple choice
+        - True/False
+    - Set time limit
+- Create surveys
+    - Add questions
+        - Single choice
+        - Multiple choice
+        - True/False
+        - Text
+            - ReGex validation
+            - One liner/Paragraph
+        - Slider (1-10)
+    - See the answers and change
+    - Turn on/off the survey for entry
+
+
+#### UI/UX Design
+
+God help us.
