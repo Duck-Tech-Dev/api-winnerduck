@@ -30,17 +30,18 @@ drop_user_table:
 
 
 add_random_users:
-	sudo -u postgres psql -d $(TEST_DB_NAME) -c "INSERT INTO users (username, email, password) VALUES \
-		('john_doe', 'john_doe@example.com', 'XyZ9@qwe'), \
-		('jane_doe', 'jane_doe@example.com', 'P@ssw0rd'), \
-		('alice_smith', 'alice_smith@example.com', 'Secret123'), \
-		('bob_johnson', 'bob_johnson@example.com', 'Qwerty!23'), \
-		('emily_wilson', 'emily_wilson@example.com', 'Welcome123'), \
-		('michael_brown', 'michael_brown@example.com', 'Password!'), \
-		('sarah_jackson', 'sarah_jackson@example.com', 'Test@1234'), \
-		('chris_miller', 'chris_miller@example.com', 'Ch@ngeMe'), \
-		('laura_taylor', 'laura_taylor@example.com', 'Summer2023'), \
-		('ryan_clark', 'ryan_clark@example.com', 'Rainbow#42');"
+	sudo -u postgres psql -d $(TEST_DB_NAME) -c "INSERT INTO users (id, username, email, password) VALUES \
+		(10000, 'john_doe', 'john_doe@example.com', 'XyZ9@qwe'), \
+		(25000, 'jane_doe', 'jane_doe@example.com', 'P@ssw0rd'), \
+		(37000, 'alice_smith', 'alice_smith@example.com', 'Secret123'), \
+		(48000, 'bob_johnson', 'bob_johnson@example.com', 'Qwerty!23'), \
+		(55000, 'emily_wilson', 'emily_wilson@example.com', 'Welcome123'), \
+		(62000, 'michael_brown', 'michael_brown@example.com', 'Password!'), \
+		(73000, 'sarah_jackson', 'sarah_jackson@example.com', 'Test@1234'), \
+		(81000, 'chris_miller', 'chris_miller@example.com', 'Ch@ngeMe'), \
+		(92000, 'laura_taylor', 'laura_taylor@example.com', 'Summer2023'), \
+		(99000, 'ryan_clark', 'ryan_clark@example.com', 'Rainbow#42');"
+
 
 
 view_users:
