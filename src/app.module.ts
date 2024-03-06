@@ -6,7 +6,7 @@ import { PostgresService } from './postgres/postgres.service';
 import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [ConfigModule.forRoot()],
+  imports: [ConfigModule.forRoot(), UserModule],
   controllers: [AppController],
   providers: [AppService, PostgresService],
 })
