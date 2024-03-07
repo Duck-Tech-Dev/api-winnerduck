@@ -50,12 +50,9 @@ view_users:
 
 start:
 	sudo systemctl start postgresql
-	sudo systemctl enable postgresql
-
 
 shut:
 	sudo systemctl stop postgresql
-	sudo systemctl disable postgresql
 
 
 status:
