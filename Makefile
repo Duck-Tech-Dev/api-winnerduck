@@ -1,7 +1,7 @@
 TEST_DB_NAME := test_db_2
 
 
-.PHONY: create_db drop_db create_user_table drop_user_table add_random_users view_users start shut status
+.PHONY: createdb dropdb create_user_table drop_user_table add_random_users view_users start shut status
 
 
 all: start
