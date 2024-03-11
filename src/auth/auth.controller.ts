@@ -1,7 +1,6 @@
 import { Controller, HttpCode, HttpStatus, Post, Body, HttpException, UseGuards, Get, Request} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
-import { User } from 'src/user/user.service';
 
 class SignInDto {
     username: string;
