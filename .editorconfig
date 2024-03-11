@@ -1,0 +1,8 @@
+;; All files
+indent-style=space
+indent-size=2
+end-of-line=lf
+charset=utf-8
+spelling-language=en
+trim-trailing-whitespace=true
+insert-final-newline=true

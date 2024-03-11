@@ -8,11 +8,11 @@ all: start
 
 
 createdb:
-	createdb $(TEST_DB_NAME)
+	sudo -u postgres createdb $(TEST_DB_NAME)
 
 
 dropdb:
-	dropdb $(TEST_DB_NAME)
+	sudo -u postgres dropdb $(TEST_DB_NAME)
 
 
 create_user_table:
