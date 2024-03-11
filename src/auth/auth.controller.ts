@@ -1,5 +1,7 @@
-import { Controller, HttpCode, HttpStatus, Post, Body, HttpException} from '@nestjs/common';
+import { Controller, HttpCode, HttpStatus, Post, Body, HttpException, UseGuards, Get, Request} from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { AuthGuard } from './auth.guard';
+import { User } from 'src/user/user.service';
 
 class SignInDto {
     username: string;
@@ -18,7 +20,7 @@ export class AuthController {
     
     @HttpCode(HttpStatus.OK)
     @Post('signin')
-    async login(@Body() signInDto: SignInDto): Promise<{access_token: string}>{
+    async login(@Body() signInDto: SignInDto): Promise<{access_token: string}> {
         try {
             const { username, password } = signInDto;
             return this.authService.signIn(username, password);
@@ -31,7 +33,7 @@ export class AuthController {
 
     @HttpCode(HttpStatus.CREATED)
     @Post('signup')
-    async signUp(@Body() signInDto: SignUpDto): Promise<{access_token: string} | {error: string}>{
+    async signUp(@Body() signInDto: SignUpDto): Promise<{access_token: string} | {error: string}> {
         try {
             const { username, email, password } = signInDto;
             console.log(username, email, password);
@@ -42,4 +44,11 @@ export class AuthController {
             throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @UseGuards(AuthGuard)
+    @Get('profile')
+    async getProfile(@Request() req): Promise<any> {
+        return req.user;
+    }
+
 }
