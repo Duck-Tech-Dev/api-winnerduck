@@ -5,6 +5,7 @@ import { UserController } from './user.controller';
 
 @Module({
   providers: [PostgresService, UserService],
-  controllers: [UserController]
+  controllers: [UserController],
+  exports: [UserService],
 })
 export class UserModule {}
