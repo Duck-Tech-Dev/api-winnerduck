@@ -38,12 +38,12 @@ export class UserService {
 
     async getByUsername(username: string): Promise<User> {
         const data = await this.postgresService.query(`SELECT * FROM ${UserService.table} WHERE ${UserService.username} = '${username}'`);
-        return data.rows;
+        return data.rows[0];
     }
 
     async getByEmail(email: string): Promise<User> {
         const data = await this.postgresService.query(`SELECT * FROM ${UserService.table} WHERE ${UserService.email} = '${email}'`);
-        return data.rows;
+        return data.rows[0];
     }
 
     async createUser(username: string, email: string, password: string): Promise<User> {
