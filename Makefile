@@ -48,6 +48,21 @@ add_random_users: create_user_table
 view_users: add_random_users
 	sudo -u $(DB_USERNAME) psql -d $(TEST_DB_NAME) -c "SELECT * FROM users;"
 
+create_raffles_table: createdb
+	sudo -u $(DB_USERNAME) psql -d $(TEST_DB_NAME) -c "CREATE TABLE raffles (\
+		raffleid INT PRIMARY KEY, \
+		rafflename VARCHAR(100), \
+		author VARCHAR(100) \
+		);"
+
+populate_raffles: create_raffles_table
+	sudo -u $(DB_USERNAME) psql -d $(TEST_DB_NAME) -c "INSERT INTO raffles (raffleid, rafflename, author) VALUES \
+		(1, 'Raffle 1', 'The Old One'), \
+		(123, 'Big Raffle', 'Mr. Bomb'), \
+		(666, 'Hell Raffle', 'Satan');"
+
+view_raffles: populate_raffles
+	sudo -u $(DB_USERNAME) psql -d $(TEST_DB_NAME) -c "SELECT * FROM raffles;"
 
 start:
 	sudo systemctl start postgresql
