@@ -5,10 +5,10 @@ DB_USERNAME := ${database_username}
 .PHONY: createdb dropdb create_user_table drop_user_table add_random_users view_users start shut status
 
 
-all: start
+all: view_users
 
 
-createdb:
+createdb: start
 	sudo -u $(DB_USERNAME) createdb $(TEST_DB_NAME)
 
 
@@ -16,7 +16,7 @@ dropdb:
 	sudo -u $(DB_USERNAME) dropdb $(TEST_DB_NAME)
 
 
-create_user_table:
+create_user_table: createdb
 	sudo -u $(DB_USERNAME) psql -d $(TEST_DB_NAME) -c "CREATE TABLE users ( \
 		id VARCHAR(6) PRIMARY KEY, \
 		username VARCHAR(100) UNIQUE NOT NULL, \
@@ -30,7 +30,7 @@ drop_user_table:
 	sudo -u $(DB_USERNAME) psql -d $(TEST_DB_NAME) -c "DROP TABLE users;"
 
 
-add_random_users:
+add_random_users: create_user_table
 	sudo -u $(DB_USERNAME) psql -d $(TEST_DB_NAME) -c "INSERT INTO users (id, username, email, password) VALUES \
 		("10000", 'john_doe', 'john_doe@example.com', 'XyZ9@qwe'), \
 		("25000", 'jane_doe', 'jane_doe@example.com', 'P@ssw0rd'), \
@@ -45,7 +45,7 @@ add_random_users:
 
 
 
-view_users:
+view_users: add_random_users
 	sudo -u $(DB_USERNAME) psql -d $(TEST_DB_NAME) -c "SELECT * FROM users;"
 
 
@@ -54,7 +54,6 @@ start:
 
 shut:
 	sudo systemctl stop postgresql
-
 
 status:
 	sudo systemctl status postgresql
