@@ -1,7 +1,7 @@
-TEST_DB_NAME := test_db_2
+include .env
+TEST_DB_NAME := ${database}
 
-
-.PHONY: create_db drop_db create_user_table drop_user_table add_random_users view_users start shut status
+.PHONY: createdb dropdb create_user_table drop_user_table add_random_users view_users start shut status
 
 
 all: start
@@ -50,12 +50,9 @@ view_users:
 
 start:
 	sudo systemctl start postgresql
-	sudo systemctl enable postgresql
-
 
 shut:
 	sudo systemctl stop postgresql
-	sudo systemctl disable postgresql
 
 
 status:
