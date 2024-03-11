@@ -31,7 +31,6 @@ export class UserService {
     }
 
     async getAllIDs(): Promise<string[]> {
-        console.log(`SELECT ${UserService.id} FROM ${UserService.table}`);
         const data = await this.postgresService.query(`SELECT ${UserService.id} FROM ${UserService.table}`);
         return data.rows;
     }
@@ -49,7 +48,7 @@ export class UserService {
     async createUser(username: string, email: string, password: string): Promise<User> {
         const id = await this.createID();
         const data = await this.postgresService.query(`INSERT INTO ${UserService.table} (${UserService.id}, ${UserService.username}, ${UserService.email}, ${UserService.password}) VALUES ('${id}', '${username}', '${email}', '${password}') RETURNING *`);
-        return data.rows;
+        return data.rows[0];
     }
 
     async createID(): Promise<string> {
