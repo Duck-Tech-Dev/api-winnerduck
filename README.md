@@ -1,10 +1,16 @@
 # Raffle/Quiz/Survey Application for AI Students Club
 
-## What do we want?
+Winner winner chicken duck!
 
-Two user control flows, one for guests and one for users.
+## License
 
-Guests are able to:
+This project is licensed under the [GNU GPLv3.0](https://github.com/Duck-Tech-Dev/api-winnerduck/blob/main/LICENSE) license.
+
+## App Flow
+
+Two user control flows, one for participants and one for users.
+
+Participants are able to:
 - Enter raffles using information requested by the raffle creator (name, student ID, e-mail etc.).
 - See the current process, winner name, how many people entered
 
@@ -28,7 +34,7 @@ Users are able to:
 - See information about previous raffles
 
 
-**Guest Perspective**
+**Participant Perspective**
 
 Scans the QR code -> `winnerduck.com/raffle/[id]`
 Goes to `winnerduck.com` and enters the raffle ID. Enter redirects to the raffle page.
