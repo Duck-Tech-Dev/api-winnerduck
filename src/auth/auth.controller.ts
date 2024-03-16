@@ -1,6 +1,7 @@
-import { Controller, HttpCode, HttpStatus, Post, Body, HttpException, UseGuards, Get, Request} from '@nestjs/common';
+import { Controller, HttpCode, HttpStatus, Post, Body, UseGuards, Get, Request, Res} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
+import { Response } from 'express';
 
 class SignInDto {
     username: string;
@@ -19,31 +20,35 @@ export class AuthController {
     
     @HttpCode(HttpStatus.OK)
     @Post('signin')
-    async login(@Body() signInDto: SignInDto): Promise<{access_token: string}> {
+    async login(@Body() signInDto: SignInDto, @Res({passthrough: true}) response: Response): Promise<void> {
         try {
             const { username, password } = signInDto;
-            return this.authService.signIn(username, password);
+            const { access_token } = await this.authService.signIn(username, password);
+            response.cookie('wd_access_token', access_token, {httpOnly: true, secure: true});
+            response.send();
         }
         catch (error) {
             console.log(error);
-            throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+            response.status(HttpStatus.BAD_REQUEST).send(error.message);
         }
     }
 
     @HttpCode(HttpStatus.CREATED)
     @Post('signup')
-    async signUp(@Body() signInDto: SignUpDto): Promise<{access_token: string} | {error: string}> {
+    async signUp(@Body() signInDto: SignUpDto, @Res({passthrough: true}) response: Response): Promise<void> {
         try {
             const { username, email, password } = signInDto;
-            console.log(username, email, password);
-            return this.authService.signUp(username, email, password);
+            const { access_token } = await this.authService.signUp(username, email, password);
+            response.cookie('wd_access_token', access_token, {httpOnly: true, secure: true});
+            response.send();
         }
         catch (error) {
             console.log(error);
-            throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+            response.status(HttpStatus.BAD_REQUEST).send(error.message);
         }
     }
 
+    // used for easily testing the auth guard, will be removed later
     @UseGuards(AuthGuard)
     @Get('profile')
     async getProfile(@Request() req): Promise<any> {

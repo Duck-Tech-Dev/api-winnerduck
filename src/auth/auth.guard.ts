@@ -1,8 +1,6 @@
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
-import { Observable } from 'rxjs';
 import { JwtService } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
-import { Request } from 'express';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -25,8 +23,16 @@ export class AuthGuard implements CanActivate {
         return true;
     }
 
-    async extractToken(request: Request): Promise<string | undefined> {
-        const [type, token] = request.headers.authorization?.split(' ') ?? [];
-        return type === 'Bearer' ? token : undefined;
+    async extractToken(request: any): Promise<string | undefined> {
+        const cookies: string = request.headers.cookie;
+        if (!cookies) {
+            return undefined;
+        }
+        const tokenCookie = cookies.split(';').find(c => c.trim().startsWith('wd_access_token='));
+        if (!tokenCookie) {
+            return undefined;
+        }
+        const token = tokenCookie.split('=')[1];
+        return token;
     }
 }
