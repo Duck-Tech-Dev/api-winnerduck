@@ -15,7 +15,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
 
-  app.use(helmet);
+  app.use(helmet());
 
   app.enableCors();
 
