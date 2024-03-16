@@ -3,7 +3,7 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { Response } from 'express';
 
-class SignInDto {
+class LogInDto {
     username: string;
     password: string;
 }
@@ -19,10 +19,10 @@ export class AuthController {
     constructor(private readonly authService: AuthService) {}
     
     @HttpCode(HttpStatus.OK)
-    @Post('signin')
-    async login(@Body() signInDto: SignInDto, @Res({passthrough: true}) response: Response): Promise<void> {
+    @Post('login')
+    async login(@Body() logInDto: LogInDto, @Res({passthrough: true}) response: Response): Promise<void> {
         try {
-            const { username, password } = signInDto;
+            const { username, password } = logInDto;
             const { access_token } = await this.authService.signIn(username, password);
             response.cookie('wd_access_token', access_token, {httpOnly: true, secure: true});
             response.send();
