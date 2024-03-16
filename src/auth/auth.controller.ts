@@ -48,11 +48,10 @@ export class AuthController {
         }
     }
 
-    // used for easily testing the auth guard, will be removed later
     @UseGuards(AuthGuard)
-    @Get('profile')
-    async getProfile(@Request() req): Promise<any> {
-        return req.user;
+    @Get('check')
+    async getProfile(): Promise<void> {
+        return;
     }
 
 }
