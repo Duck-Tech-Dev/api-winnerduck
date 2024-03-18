@@ -1,4 +1,4 @@
-import { Controller, HttpCode, HttpStatus, Post, Body, UseGuards, Get, Request, Res} from '@nestjs/common';
+import { Controller, HttpCode, HttpStatus, Post, Body, Param, UseGuards, Get, Res} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { Response } from 'express';
@@ -52,6 +52,21 @@ export class AuthController {
     @Get('check')
     async getProfile(): Promise<void> {
         return;
+    }
+
+    @HttpCode(HttpStatus.OK)
+    @Post('validate')
+    async validateToken(@Body() validationDto: any, @Res({passthrough: true}) response: Response): Promise<void> {
+        try {
+            const allCookies = validationDto.cookies;
+            const token = allCookies.find((cookie: any) => cookie.name === 'wd_access_token').value;
+            await this.authService.validateToken(token);
+            response.send();
+        }
+        catch (error) {
+            console.log(error);
+            response.status(HttpStatus.BAD_REQUEST).send(error.message);
+        }
     }
 
 }
