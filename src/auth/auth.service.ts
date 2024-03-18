@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User, UserService } from 'src/user/user.service';
+import { jwtConstants } from './constants';
 
 @Injectable()
 export class AuthService {
@@ -35,6 +36,15 @@ export class AuthService {
             const payload = { username: user.username, sub: user.id };
             const token = await this.jwtService.signAsync(payload);
             return { access_token: token };
+        }
+    }
+
+    async validateToken(token: string): Promise<void> {
+        try {
+            await this.jwtService.verifyAsync(token, { secret: jwtConstants.secret } );
+        }
+        catch (error) {
+            throw new Error('Invalid token');
         }
     }
 }
