@@ -23,7 +23,7 @@ export class AuthController {
     async login(@Body() logInDto: LogInDto, @Res({passthrough: true}) response: Response): Promise<void> {
         try {
             const { username, password } = logInDto;
-            const { access_token } = await this.authService.signIn(username, password);
+            const { access_token } = await this.authService.logIn(username, password);
             response.cookie('wd_access_token', access_token, {httpOnly: true, secure: true});
             response.send();
         }

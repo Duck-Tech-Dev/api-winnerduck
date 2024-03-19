@@ -10,7 +10,7 @@ export class AuthService {
         private readonly jwtService: JwtService
     ) {}
 
-    async signIn(username: string, password: string): Promise<{access_token: string}> {
+    async logIn(username: string, password: string): Promise<{access_token: string}> {
         const user: User = await this.userService.getByUsername(username);
         if (user && user.password === password) {
             const payload = { username: user.username, sub: user.id };
