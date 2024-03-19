@@ -59,10 +59,12 @@ export class UserService {
   async createID(): Promise<string> {
     const allIDs = await this.getAllIDs();
     //id will be between 00_000 and 99_999
-    let id: string = Math.floor(Math.random() * 90_000 + 10_000).toString();
-    while (allIDs.includes(id)) {
+    let id: string;
+
+    do {
       id = Math.floor(Math.random() * 90_000 + 10_000).toString();
-    }
+    } while (allIDs.includes(id));
+
     return id;
   }
 }
