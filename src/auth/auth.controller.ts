@@ -28,7 +28,7 @@ export class AuthController {
             response.send();
         }
         catch (error) {
-            console.log(error);
+            console.log("Error on auth/login:\n", error);
             response.status(HttpStatus.BAD_REQUEST).send(error.message);
         }
     }
@@ -43,14 +43,14 @@ export class AuthController {
             response.send();
         }
         catch (error) {
-            console.log(error);
+            console.log("Error on auth/signup:\n", error);
             response.status(HttpStatus.BAD_REQUEST).send(error.message);
         }
     }
 
     @UseGuards(AuthGuard)
     @Get('check')
-    async getProfile(): Promise<void> {
+    async checkAuth(): Promise<void> {
         return;
     }
 
@@ -64,7 +64,7 @@ export class AuthController {
             response.send();
         }
         catch (error) {
-            console.log(error);
+            console.log("Error on auth/validate:\n", error);
             response.status(HttpStatus.BAD_REQUEST).send(error.message);
         }
     }
