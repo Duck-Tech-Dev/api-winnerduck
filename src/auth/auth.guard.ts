@@ -17,22 +17,26 @@ export class AuthGuard implements CanActivate {
             request['user'] = payload;
         } 
         catch (e) {
-            console.log(e);
             throw new UnauthorizedException();
         }
         return true;
     }
 
     async extractToken(request: any): Promise<string | undefined> {
-        const cookies: string = request.headers.cookie;
-        if (!cookies) {
+        try {
+            const cookies: string = request.headers.cookie;
+            if (!cookies) {
+                return undefined;
+            }
+            const tokenCookie = cookies.split(';').find(c => c.trim().startsWith('wd_access_token='));
+            if (!tokenCookie) {
+                return undefined;
+            }
+            const token = tokenCookie.split('=')[1];
+            return token;
+        }
+        catch {
             return undefined;
         }
-        const tokenCookie = cookies.split(';').find(c => c.trim().startsWith('wd_access_token='));
-        if (!tokenCookie) {
-            return undefined;
-        }
-        const token = tokenCookie.split('=')[1];
-        return token;
     }
 }
