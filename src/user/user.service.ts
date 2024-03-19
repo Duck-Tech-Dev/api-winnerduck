@@ -31,7 +31,7 @@ export class UserService {
   }
 
   async getByID(id: string): Promise<User> {
-    const data = await this.postgresService.query(`SELECT * FROM ${Table.users} WHERE ${UserRow.id} = ${id}`);
+    const data = await this.postgresService.query(`SELECT * FROM ${Table.users} WHERE ${UserRow.id}=$1`, [id]);
     return data.rows;
   }
 
@@ -41,18 +41,18 @@ export class UserService {
   }
 
   async getByUsername(username: string): Promise<User> {
-    const data = await this.postgresService.query(`SELECT * FROM ${Table.users} WHERE ${UserRow.username} = '${username}'`);
+    const data = await this.postgresService.query(`SELECT * FROM ${Table.users} WHERE ${UserRow.username}=$1`, [username]);
     return data.rows[0];
   }
 
   async getByEmail(email: string): Promise<User> {
-    const data = await this.postgresService.query(`SELECT * FROM ${Table.users} WHERE ${UserRow.email} = '${email}'`);
+    const data = await this.postgresService.query(`SELECT * FROM ${Table.users} WHERE ${UserRow.email}=$1`, [email]);
     return data.rows[0];
   }
 
   async createUser(username: string, email: string, password: string): Promise<User> {
     const id = await this.createID();
-    const data = await this.postgresService.query(`INSERT INTO ${Table.users} (${UserRow.id}, ${UserRow.username}, ${UserRow.email}, ${UserRow.password}) VALUES ('${id}', '${username}', '${email}', '${password}') RETURNING *`);
+    const data = await this.postgresService.query(`INSERT INTO ${Table.users} (${UserRow.id}, ${UserRow.username}, ${UserRow.email}, ${UserRow.password}) VALUES ($1, $2, $3, $4) RETURNING *`, [id, username, email, password]);
     return data.rows[0];
   }
 
