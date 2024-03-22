@@ -2,22 +2,22 @@ include .env
 TEST_DB_NAME := ${database}
 DB_USERNAME := ${database_username}
 
-.PHONY: createdb dropdb create_user_table drop_user_table add_random_users view_users start shut status
+.PHONY: createdb dropdb create_user_table drop_user_table populate_users view_users start shut status
 
 
 all: view_users
 
 
-createdb: start
-	sudo -u $(DB_USERNAME) createdb $(TEST_DB_NAME)
+createdb: start dropdb
+	psql -U $(DB_USERNAME) -c 'CREATE DATABASE $(TEST_DB_NAME);'
 
 
 dropdb:
-	sudo -u $(DB_USERNAME) dropdb $(TEST_DB_NAME)
+	psql -U $(DB_USERNAME) -c 'DROP DATABASE IF EXISTS $(TEST_DB_NAME);'
 
 
 create_user_table: createdb
-	sudo -u $(DB_USERNAME) psql -d $(TEST_DB_NAME) -c "CREATE TABLE users ( \
+	psql -U $(DB_USERNAME) -d $(TEST_DB_NAME) -c "CREATE TABLE users ( \
 		id VARCHAR(6) PRIMARY KEY, \
 		username VARCHAR(100) UNIQUE NOT NULL, \
 		email VARCHAR(100) UNIQUE NOT NULL, \
@@ -27,11 +27,11 @@ create_user_table: createdb
 
 
 drop_user_table:
-	sudo -u $(DB_USERNAME) psql -d $(TEST_DB_NAME) -c "DROP TABLE users;"
+	psql -U $(DB_USERNAME) -d $(TEST_DB_NAME) -c "DROP TABLE IF EXISTS users;"
 
 
-add_random_users: create_user_table
-	sudo -u $(DB_USERNAME) psql -d $(TEST_DB_NAME) -c "INSERT INTO users (id, username, email, password) VALUES \
+populate_users: create_user_table
+	psql -U $(DB_USERNAME) -d $(TEST_DB_NAME) -c "INSERT INTO users (id, username, email, password) VALUES \
 		("10000", 'john_doe', 'john_doe@example.com', 'XyZ9@qwe'), \
 		("25000", 'jane_doe', 'jane_doe@example.com', 'P@ssw0rd'), \
 		("37000", 'alice_smith', 'alice_smith@example.com', 'Secret123'), \
@@ -44,25 +44,29 @@ add_random_users: create_user_table
 		("99000", 'ryan_clark', 'ryan_clark@example.com', 'Rainbow#42');"
 
 
-
 view_users: add_random_users
-	sudo -u $(DB_USERNAME) psql -d $(TEST_DB_NAME) -c "SELECT * FROM users;"
+	psql -U $(DB_USERNAME) -d $(TEST_DB_NAME) -c "SELECT * FROM users;"
 
-create_raffles_table: createdb
-	sudo -u $(DB_USERNAME) psql -d $(TEST_DB_NAME) -c "CREATE TABLE raffles (\
+
+create_raffles_table: createdb drop_raffles_table
+	psql -U $(DB_USERNAME) -d $(TEST_DB_NAME) -c "CREATE TABLE raffles (\
 		raffleid INT PRIMARY KEY, \
 		rafflename VARCHAR(100), \
 		author VARCHAR(100) \
 		);"
 
+
+drop_raffles_table:
+	psql -U $(DB_USERNAME) -d $(TEST_DB_NAME) -c 'DROP TABLE IF EXISTS raffles;'
+
 populate_raffles: create_raffles_table
-	sudo -u $(DB_USERNAME) psql -d $(TEST_DB_NAME) -c "INSERT INTO raffles (raffleid, rafflename, author) VALUES \
+	psql -U $(DB_USERNAME) -d $(TEST_DB_NAME) -c "INSERT INTO raffles (raffleid, rafflename, author) VALUES \
 		(1, 'Raffle 1', 'The Old One'), \
 		(123, 'Big Raffle', 'Mr. Bomb'), \
 		(666, 'Hell Raffle', 'Satan');"
 
 view_raffles: populate_raffles
-	sudo -u $(DB_USERNAME) psql -d $(TEST_DB_NAME) -c "SELECT * FROM raffles;"
+	psql -U $(DB_USERNAME) -d $(TEST_DB_NAME) -c "SELECT * FROM raffles;"
 
 start:
 	sudo systemctl start postgresql
