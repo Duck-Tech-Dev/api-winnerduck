@@ -2,6 +2,7 @@ import { Controller, HttpCode, HttpStatus, Post, Body, UseGuards, Get, Res } fro
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { Response } from 'express';
+import { cookieOptions } from './constants';
 
 class LogInDto {
   username: string;
@@ -24,7 +25,7 @@ export class AuthController {
     try {
       const { username, password } = logInDto;
       const { access_token } = await this.authService.logIn(username, password);
-      response.cookie('wd_access_token', access_token, {httpOnly: true, secure: true});
+      response.cookie('wd_access_token', access_token, cookieOptions);
       response.send();
     }
     catch (error) {
@@ -39,7 +40,7 @@ export class AuthController {
     try {
       const { username, email, password } = signInDto;
       const { access_token } = await this.authService.signUp(username, email, password);
-      response.cookie('wd_access_token', access_token, {httpOnly: true, secure: true});
+      response.cookie('wd_access_token', access_token, cookieOptions);
       response.send();
     }
     catch (error) {
