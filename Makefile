@@ -46,10 +46,11 @@ view_users: create_users_table
 
 
 # Raffles table
-create_raffles_table: createdb 
+create_raffles_table: createdb create_users_table
 	psql -U $(DB_USERNAME) -d $(DB_NAME) -c "CREATE TABLE IF NOT EXISTS raffles (\
 		raffleid INT PRIMARY KEY, \
 		rafflename VARCHAR(100), \
+		form JSONB, \
 		authorid INT, \
 		CONSTRAINT fk_author_user \
 			FOREIGN KEY (authorid) \
@@ -59,7 +60,7 @@ create_raffles_table: createdb
 drop_raffles_table:
 	psql -U $(DB_USERNAME) -d $(DB_NAME) -c 'DROP TABLE IF EXISTS raffles;'
 
-populate_raffles:
+populate_raffles: create_raffles_table
 	psql -U $(DB_USERNAME) -d $(DB_NAME) -c "INSERT INTO raffles (raffleid, rafflename, authorid) VALUES \
 		(1, 'Raffle 1', 10000), \
 		(123, 'Big Raffle', 62000), \
