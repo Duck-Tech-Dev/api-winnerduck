@@ -17,6 +17,7 @@ export class PostgresService {
 
   async query(query: string, params: any[] = []): Promise<any> {
     const client = await this.pool.connect();
+    console.log(`log: running query '${query}' with params '${params}'`);
     try {
       return await client.query(query, params);
     }
