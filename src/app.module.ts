@@ -5,9 +5,10 @@ import { AppService } from './app.service';
 import { PostgresService } from './postgres/postgres.service';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { ParticipantModule } from './participant/participant.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), UserModule, AuthModule],
+  imports: [ConfigModule.forRoot(), UserModule, AuthModule, ParticipantModule],
   controllers: [AppController],
   providers: [AppService, PostgresService],
 })
