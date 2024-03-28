@@ -1,6 +1,7 @@
 export enum Table {
   users = 'users',
   participants = 'participants',
+  raffles = 'raffles'
 }
 
 export enum UserColumn {
@@ -15,4 +16,11 @@ export enum ParticipantColumn {
   participantid = 'participantid',
   info = 'info',
   raffleid = 'raffleid',
+}
+
+export enum RaffleColumn {
+  raffleid = 'raffleid',
+  rafflename = 'rafflename',
+  form = 'form',
+  authorid = 'authorid'
 }
