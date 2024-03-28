@@ -4,7 +4,7 @@ export enum Table {
 }
 
 export enum UserColumn {
-  id = 'userid',
+  userid = 'userid',
   username = 'username',
   email = 'email',
   password = 'password',

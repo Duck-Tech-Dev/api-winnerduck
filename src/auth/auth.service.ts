@@ -13,7 +13,7 @@ export class AuthService {
   async logIn(username: string, password: string): Promise<{access_token: string}> {
     const user: User = await this.userService.getByUsername(username);
     if (user && user.password === password) {
-      const payload = { username: user.username, sub: user.id };
+      const payload = { username: user.username, sub: user.userid };
       const token = await this.jwtService.signAsync(payload);
       return { access_token: token };
     }
@@ -32,7 +32,7 @@ export class AuthService {
       throw new Error('Email already exists');
     }
     const newUser: User = await this.userService.createUser(username, email, password);
-    const payload = { username: newUser.username, sub: newUser.id };
+    const payload = { username: newUser.username, sub: newUser.userid };
     const token = await this.jwtService.signAsync(payload);
     return { access_token: token };
   }
