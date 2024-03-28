@@ -12,7 +12,7 @@ export enum UserColumn {
 }
 
 export enum ParticipantColumn {
-  id = 'participantid',
+  participantid = 'participantid',
   info = 'info',
   raffleid = 'raffleid',
 }
