@@ -1,14 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PostgresService } from 'src/postgres/postgres.service';
 import { Table, UserColumn } from 'src/postgres/database_tables';
-
-export interface User {
-  userid: string;
-  username: string;
-  email: string;
-  password: string;
-  created_at: string;
-};
+import { User } from 'src/interfaces/user';
 
 @Injectable()
 export class UserService {

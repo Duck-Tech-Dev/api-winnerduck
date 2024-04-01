@@ -1,12 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ParticipantColumn, Table } from 'src/postgres/database_tables';
 import { PostgresService } from 'src/postgres/postgres.service';
-
-export interface Participant {
-  participantid: string,
-  info: object,
-  raffleid: string,
-}
+import { Participant } from 'src/interfaces/participant';
 
 @Injectable()
 export class ParticipantService {

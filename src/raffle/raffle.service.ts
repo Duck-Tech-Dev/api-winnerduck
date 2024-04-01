@@ -2,19 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { RaffleColumn, Table } from 'src/postgres/database_tables';
 import { PostgresService } from 'src/postgres/postgres.service';
 
-export interface Raffle {
-  raffleid: string,
-  rafflename: string,
-  form: FormQuestion[],
-  authorid: string,
-}
-
-export interface FormQuestion {
-  type: string,
-  title: string,
-  description: string,
-  very_important_field: object,
-}
+import { FormQuestion, } from 'src/interfaces/formQuestion';
+import { Raffle } from 'src/interfaces/raffle';
 
 
 @Injectable()
