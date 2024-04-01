@@ -4,7 +4,7 @@ import { PostgresService } from 'src/postgres/postgres.service';
 
 export interface Raffle {
   raffleid: string,
-  rafflename: object,
+  rafflename: string,
   form: object,
   authorid: string,
 }
@@ -33,9 +33,9 @@ export class RaffleService {
     return data.rows;
   }
 
-  async createRaffle(info: object, raffleid: string): Promise<Raffle> {
+  async createRaffle(rafflename: string, form: object, raffleid: string): Promise<Raffle> {
     const id = await this.createID();
-    const data = await this.postgresService.query(`INSERT INTO ${Table.raffles} (${RaffleColumn.raffleid}, ${RaffleColumn.rafflename}, ${RaffleColumn.raffleid}) VALUES ($1, $2, $3) RETURNING *`, [id, info, raffleid]);
+    const data = await this.postgresService.query(`INSERT INTO ${Table.raffles} (${RaffleColumn.raffleid}, ${RaffleColumn.rafflename}, ${RaffleColumn.form}, ${RaffleColumn.authorid}) VALUES ($1, $2, $3, $4) RETURNING *`, [id, rafflename, form, raffleid]);
     return data.rows[0];
   }
 
@@ -50,5 +50,4 @@ export class RaffleService {
 
     return id;
   }
-
 }
