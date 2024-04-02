@@ -30,7 +30,7 @@ export class RaffleController {
   }
 
   @Get('userid/:id')
-  async getByRaffleID(@Param('id') id: string) {
+  async getByUserId(@Param('id') id: string) {
     try {
       const data = await this.raffleService.getByUserID(id);
       return data;
