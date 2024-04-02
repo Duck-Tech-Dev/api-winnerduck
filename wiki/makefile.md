@@ -1,7 +1,6 @@
-The repo contains a Makefile which is used to automate some of the tasks. To use these, please install `make` from your favorite package manager.
+The repo contains a Makefile which is used to automate some of the tasks. To use these, please install `make` from your favorite package manager (which obviously is `pacman`).
 
-## Database
-Since the project uses PostgreSQL databases, there are some automation scripts for it in the Makefile:
+## Database and table management commands
 
 ```
 make createdb
@@ -14,29 +13,37 @@ make dropdb
 This will drop (delete) the test database. Please be careful while using this command as it can drop any database that has the name specified in the .env file
 
 ```
-make create_user_table
+make create_[users/raffles/participants]_table
 ```
-This will create the `users` table in the test database.
-```
-make drop_user_table
-```
-This will drop the `users` table in the test database.
+This will create an empty table for the entry type.
 
 ```
-make add_random_users
+make drop_[users/raffles/participants]_table
 ```
-This will create several random users inside the `users` table.
+This will drop (delete) the specified table.
 
 ```
-make view_users
+make populate_[users/raffles/participants]
 ```
-This will show all the users.
+This will fill the specified table with example values.
 
 ```
-start
+make view_[users/raffles/participants]
+```
+This will print the contents of a table from the database.
+
+## PostgreSQL service commands
+```
+make start
 ```
 This will start the postgresql service using systemctl. Please remember that this requires a valid postgresql installation.
+
 ```
-stop
+make stop
 ```
 This will stop the postgresql service using systemctl. Please remember that this requires a valid postgresql installation.
+
+```
+make status
+```
+This shows whether or not the postgresql service is currently active.
