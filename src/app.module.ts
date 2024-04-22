@@ -6,6 +6,8 @@ import { PostgresService } from './postgres/postgres.service';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { ParticipantModule } from './participant/participant.module';
+import { RaffleModule } from './raffle/raffle.module';
 
 @Module({
   imports: [
@@ -15,7 +17,10 @@ import { ThrottlerModule } from '@nestjs/throttler';
       limit: 2
     }]),
     UserModule,
-    AuthModule, ],
+    AuthModule, 
+    ParticipantModule, 
+    RaffleModule,
+  ],
   controllers: [AppController],
   providers: [AppService, PostgresService],
 })

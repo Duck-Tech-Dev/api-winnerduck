@@ -7,16 +7,17 @@ export class PostgresService {
 
   constructor() {
     this.pool = new Pool({
-      database: process.env.database,
-      host: process.env.host,
-      port: process.env.port,
-      user: process.env.user,
-      password: process.env.password
+      database: process.env.DB_NAME,
+      host: process.env.DB_HOST,
+      port: process.env.DB_PORT,
+      user: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD
     });
   }
 
   async query(query: string, params: any[] = []): Promise<any> {
     const client = await this.pool.connect();
+    console.log(`log: running query '${query}' with params '${params}'`);
     try {
       return await client.query(query, params);
     }

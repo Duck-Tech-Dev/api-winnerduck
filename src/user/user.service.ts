@@ -1,25 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PostgresService } from 'src/postgres/postgres.service';
-
-export interface User {
-  id: string;
-  username: string;
-  email: string;
-  password: string;
-  created_at: string;
-};
-
-export enum Table {
-  users = 'users',
-}
-
-export enum UserRow {
-  id = 'id',
-  username = 'username',
-  email = 'email',
-  password = 'password',
-  created_at = 'created_at'
-}
+import { Table, UserColumn } from 'src/postgres/database_tables';
+import { User } from 'src/interfaces/user';
 
 @Injectable()
 export class UserService {
@@ -31,28 +13,28 @@ export class UserService {
   }
 
   async getByID(id: string): Promise<User> {
-    const data = await this.postgresService.query(`SELECT * FROM ${Table.users} WHERE ${UserRow.id}=$1`, [id]);
+    const data = await this.postgresService.query(`SELECT * FROM ${Table.users} WHERE ${UserColumn.userid}=$1`, [id]);
     return data.rows;
   }
 
   async getAllIDs(): Promise<string[]> {
-    const data = await this.postgresService.query(`SELECT ${UserRow.id} FROM ${Table.users}`);
+    const data = await this.postgresService.query(`SELECT ${UserColumn.userid} FROM ${Table.users}`);
     return data.rows;
   }
 
   async getByUsername(username: string): Promise<User> {
-    const data = await this.postgresService.query(`SELECT * FROM ${Table.users} WHERE ${UserRow.username}=$1`, [username]);
+    const data = await this.postgresService.query(`SELECT * FROM ${Table.users} WHERE ${UserColumn.username}=$1`, [username]);
     return data.rows[0];
   }
 
   async getByEmail(email: string): Promise<User> {
-    const data = await this.postgresService.query(`SELECT * FROM ${Table.users} WHERE ${UserRow.email}=$1`, [email]);
+    const data = await this.postgresService.query(`SELECT * FROM ${Table.users} WHERE ${UserColumn.email}=$1`, [email]);
     return data.rows[0];
   }
 
   async createUser(username: string, email: string, password: string): Promise<User> {
     const id = await this.createID();
-    const data = await this.postgresService.query(`INSERT INTO ${Table.users} (${UserRow.id}, ${UserRow.username}, ${UserRow.email}, ${UserRow.password}) VALUES ($1, $2, $3, $4) RETURNING *`, [id, username, email, password]);
+    const data = await this.postgresService.query(`INSERT INTO ${Table.users} (${UserColumn.userid}, ${UserColumn.username}, ${UserColumn.email}, ${UserColumn.password}) VALUES ($1, $2, $3, $4) RETURNING *`, [id, username, email, password]);
     return data.rows[0];
   }
 

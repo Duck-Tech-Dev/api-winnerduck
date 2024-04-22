@@ -36,10 +36,9 @@ export class AuthController {
 
   @HttpCode(HttpStatus.CREATED)
   @Post('signup')
-  async signUp(@Body() signInDto: SignUpDto, @Res({passthrough: true}) response: Response): Promise<void> {
+  async signUp(@Body() signUpDto: SignUpDto, @Res({passthrough: true}) response: Response): Promise<void> {
     try {
-      const { username, email, password } = signInDto;
-      const { access_token } = await this.authService.signUp(username, email, password);
+      const { access_token } = await this.authService.signUp(signUpDto.username, signUpDto.email, signUpDto.password);
       response.cookie('wd_access_token', access_token, cookieOptions);
       response.send();
     }
