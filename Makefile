@@ -50,6 +50,7 @@ create_raffles_table:
 	psql -U $(DB_USERNAME) -d $(DB_NAME) -c "CREATE TABLE IF NOT EXISTS raffles (\
 		id INT PRIMARY KEY, \
 		title VARCHAR(100), \
+		description TEXT, \
 		form JSONB, \
 		author_id INT, \
 		CONSTRAINT fk_author_user \
@@ -61,12 +62,12 @@ drop_raffles_table:
 	psql -U $(DB_USERNAME) -d $(DB_NAME) -c 'DROP TABLE IF EXISTS raffles;'
 
 populate_raffles:
-	psql -U $(DB_USERNAME) -d $(DB_NAME) -c "INSERT INTO raffles (id, title, author_id) VALUES \
-		(1, 'Raffle 1', 10000), \
-		(123, 'Big Raffle', 62000), \
-		(124, 'Big Raffle 2', 62000), \
-		(125, 'Big Raffle 3', 62000), \
-		(666, 'Hell Raffle', 99000);"
+	psql -U $(DB_USERNAME) -d $(DB_NAME) -c "INSERT INTO raffles (id, title, description, author_id) VALUES \
+		(1, 'Raffle 1', 'Testing raffle 1', 10000), \
+		(123, 'Big Raffle', 'Testing raffle 2', 62000), \
+		(124, 'Big Raffle 2', 'Testing raffle 3', 62000), \
+		(125, 'Big Raffle 3', 'Testing raffle 4', 62000), \
+		(666, 'Hell Raffle', 'Testing raffle 5', 99000);"
 
 view_raffles:
 	psql -U $(DB_USERNAME) -d $(DB_NAME) -c "SELECT * FROM raffles;"

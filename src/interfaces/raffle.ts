@@ -4,5 +4,6 @@ export interface Raffle {
   id: string,
   title: string,
   form: FormQuestion[],
+  description: string,
   author_id: string,
 }

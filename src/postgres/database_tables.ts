@@ -21,6 +21,7 @@ export enum ParticipantColumn {
 export enum RaffleColumn {
   id = 'id',
   title = 'title',
+  description = 'description',
   form = 'form',
   author_id = 'author_id'
 }
