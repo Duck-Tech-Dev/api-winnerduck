@@ -81,7 +81,7 @@ create_participants_table:
 		raffle_id INT, \
 		CONSTRAINT fk_raffle_participants \
 			FOREIGN KEY (raffle_id) \
-			REFERENCES raffles(raffle_id) \
+			REFERENCES raffles(id) \
 		);"
 
 drop_participants_table:
