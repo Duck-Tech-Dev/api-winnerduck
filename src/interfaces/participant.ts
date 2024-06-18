@@ -1,5 +1,5 @@
 export interface Participant {
-    participantid: string;
+    id: string;
     info: object;
-    raffleid: string;
+    raffle_id: string;
 }

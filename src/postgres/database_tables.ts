@@ -5,7 +5,7 @@ export enum Table {
 }
 
 export enum UserColumn {
-  userid = 'userid',
+  id = 'id',
   username = 'username',
   email = 'email',
   password = 'password',
@@ -13,14 +13,14 @@ export enum UserColumn {
 }
 
 export enum ParticipantColumn {
-  participantid = 'participantid',
+  id = 'id',
   info = 'info',
-  raffleid = 'raffleid',
+  raffle_id = 'raffle_id',
 }
 
 export enum RaffleColumn {
-  raffleid = 'raffleid',
-  rafflename = 'rafflename',
+  id = 'id',
+  title = 'title',
   form = 'form',
-  authorid = 'authorid'
+  author_id = 'author_id'
 }
