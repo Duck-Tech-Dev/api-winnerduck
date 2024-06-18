@@ -98,6 +98,9 @@ view_participants:
 	psql -U $(DB_USERNAME) -d $(DB_NAME) -c 'SELECT * FROM participants;'
 
 
+# One for all restart
+do_over: dropdb createdb create_users_table populate_users create_raffles_table populate_raffles create_participants_table populate_participants
+
 # Service management
 start:
 	sudo systemctl start postgresql
