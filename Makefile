@@ -6,7 +6,7 @@ include .env
 all: view_users
 
 # Database management
-createdb: start
+createdb:
 	psql -U $(DB_USERNAME) -tc "SELECT 1 FROM pg_database WHERE datname = '$(DB_NAME)';"\
 		| grep -q 1\
 		|| psql -U $(DB_USERNAME) -c "CREATE DATABASE $(DB_NAME);"
@@ -18,7 +18,7 @@ dropdb:
 # User table
 create_users_table:
 	psql -U $(DB_USERNAME) -d $(DB_NAME) -c "CREATE TABLE IF NOT EXISTS users ( \
-		userid INT PRIMARY KEY, \
+		id INT PRIMARY KEY, \
 		username VARCHAR(100) UNIQUE NOT NULL, \
 		email VARCHAR(100) UNIQUE NOT NULL, \
 		password VARCHAR(100) NOT NULL, \
@@ -28,8 +28,8 @@ create_users_table:
 drop_users_table:
 	psql -U $(DB_USERNAME) -d $(DB_NAME) -c "DROP TABLE IF EXISTS users;"
 
-	psql -U $(DB_USERNAME) -d $(DB_NAME) -c "INSERT INTO users (userid, username, email, password) VALUES \
 populate_users:
+	psql -U $(DB_USERNAME) -d $(DB_NAME) -c "INSERT INTO users (id, username, email, password) VALUES \
 		(10000, 'john_doe', 'john_doe@example.com', 'XyZ9@qwe'), \
 		(25000, 'jane_doe', 'jane_doe@example.com', 'P@ssw0rd'), \
 		(37000, 'alice_smith', 'alice_smith@example.com', 'Secret123'), \
@@ -48,20 +48,20 @@ view_users:
 # Raffles table
 create_raffles_table: 
 	psql -U $(DB_USERNAME) -d $(DB_NAME) -c "CREATE TABLE IF NOT EXISTS raffles (\
-		raffleid INT PRIMARY KEY, \
-		rafflename VARCHAR(100), \
+		id INT PRIMARY KEY, \
+		title VARCHAR(100), \
 		form JSONB, \
-		authorid INT, \
+		author_id INT, \
 		CONSTRAINT fk_author_user \
-			FOREIGN KEY (authorid) \
-			REFERENCES users(userid)\
+			FOREIGN KEY (author_id) \
+			REFERENCES users(id)\
 		);"
 
 drop_raffles_table:
 	psql -U $(DB_USERNAME) -d $(DB_NAME) -c 'DROP TABLE IF EXISTS raffles;'
 
-	psql -U $(DB_USERNAME) -d $(DB_NAME) -c "INSERT INTO raffles (raffleid, rafflename, authorid) VALUES \
 populate_raffles:
+	psql -U $(DB_USERNAME) -d $(DB_NAME) -c "INSERT INTO raffles (id, title, author_id) VALUES \
 		(1, 'Raffle 1', 10000), \
 		(123, 'Big Raffle', 62000), \
 		(124, 'Big Raffle 2', 62000), \
@@ -75,19 +75,19 @@ view_raffles:
 # Participants tables
 create_participants_table:
 	psql -U $(DB_USERNAME) -d $(DB_NAME) -c "CREATE TABLE IF NOT EXISTS participants ( \
-		participantid INT PRIMARY KEY, \
+		id INT PRIMARY KEY, \
 		info JSONB, \
-		raffleid INT, \
+		raffle_id INT, \
 		CONSTRAINT fk_raffle_participants \
-			FOREIGN KEY (raffleid) \
-			REFERENCES raffles(raffleid) \
+			FOREIGN KEY (raffle_id) \
+			REFERENCES raffles(raffle_id) \
 		);"
 
 drop_participants_table:
 	psql -U $(DB_USERNAME) -d $(DB_NAME) -c 'DROP TABLE IF EXISTS participants;'
 
-	psql -U $(DB_USERNAME) -d $(DB_NAME) -c "INSERT INTO participants (participantid, info, raffleid) VALUES \
 populate_participants:
+	psql -U $(DB_USERNAME) -d $(DB_NAME) -c "INSERT INTO participants (id, info, raffle_id) VALUES \
 		(1, '{\"name\": \"John Doe\", \"phone_number\": \"+1234567890\", \"email\": \"john.doe@example.com\", \"student_id\": \"A12345\"}', 1), \
 		(2, '{\"name\": \"Alice Smith\", \"phone_number\": \"+1987654321\", \"email\": \"alice.smith@example.com\", \"student_id\": \"B54321\"}', 123), \
 		(3, '{\"name\": \"Bob Johnson\", \"phone_number\": \"+1122334455\", \"email\": \"bob.johnson@example.com\"}', 123), \
