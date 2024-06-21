@@ -51,6 +51,7 @@ create_raffles_table:
 		id INT PRIMARY KEY, \
 		title VARCHAR(100), \
 		description TEXT, \
+		status VARCHAR(20), \
 		form JSONB, \
 		author_id INT, \
 		CONSTRAINT fk_author_user \
@@ -62,6 +63,43 @@ drop_raffles_table:
 	psql -U $(DB_USERNAME) -d $(DB_NAME) -c 'DROP TABLE IF EXISTS raffles;'
 
 populate_raffles:
+	psql -U $(DB_USERNAME) -d $(DB_NAME) -c "INSERT INTO raffles (id, title, description, status, author_id) VALUES \
+		(1, 'Summer Bonanza', 'Enter for a chance to win a summer getaway package!', 'draft', 10000), \
+		(123, 'Holiday Extravaganza', 'Win amazing holiday gifts and surprises!', 'ready', 62000), \
+		(124, 'Mega Raffle', 'Massive prizes await in our biggest raffle yet!', 'running', 62000), \
+		(125, 'New Year Raffle', 'Celebrate the new year with fantastic prizes!', 'finished', 62000), \
+		(666, 'Halloween Special', 'Spooky prizes for a frightfully fun Halloween!', 'archived', 99000), \
+		(2, 'Spring Fling', 'Fresh prizes for a blooming spring season.', 'draft', 25000), \
+		(3, 'Back to School Raffle', 'Gear up for school with exciting prizes.', 'ready', 37000), \
+		(4, 'Tech Giveaway', 'Win the latest gadgets and electronics!', 'running', 48000), \
+		(5, 'Fitness Frenzy', 'Get fit with our awesome fitness gear prizes.', 'finished', 55000), \
+		(6, 'Foodie Delight', 'Win gourmet meals and culinary experiences.', 'archived', 62000), \
+		(7, 'Adventure Awaits', 'Outdoor gear and travel prizes up for grabs!', 'draft', 73000), \
+		(8, 'Fashion Fiesta', 'Stylish prizes for the fashion-forward.', 'ready', 81000), \
+		(9, 'Music Mania', 'Win concert tickets and music gear.', 'running', 92000), \
+		(10, 'Artistic Expression', 'Art supplies and creative tools await!', 'finished', 99000), \
+		(11, 'Home Sweet Home', 'Win amazing home improvement prizes.', 'archived', 10000), \
+		(12, 'Winter Wonderland', 'Cozy up with our winter-themed prizes.', 'draft', 25000), \
+		(13, 'Pet Lover’s Paradise', 'Prizes for you and your furry friends.', 'ready', 37000), \
+		(14, 'Eco-Friendly Raffle', 'Sustainable prizes for a greener world.', 'running', 48000), \
+		(15, 'Gamer’s Delight', 'Win the latest gaming consoles and games.', 'finished', 55000), \
+		(16, 'Bookworm Bonanza', 'A collection of best-selling books up for grabs.', 'archived', 62000), \
+		(17, 'Movie Magic', 'Win movie tickets and home entertainment systems.', 'draft', 73000), \
+		(18, 'Luxury Lifestyle', 'Exclusive luxury prizes just for you.', 'ready', 81000), \
+		(19, 'Health & Wellness', 'Pamper yourself with our wellness prizes.', 'running', 92000), \
+		(20, 'Car Enthusiast Raffle', 'Win car accessories and auto services.', 'finished', 99000), \
+		(21, 'Charity Raffle', 'Support a good cause and win prizes.', 'archived', 10000), \
+		(22, 'Family Fun', 'Prizes for the whole family to enjoy.', 'draft', 25000), \
+		(23, 'DIY Dream', 'Win tools and materials for your next project.', 'ready', 37000), \
+		(24, 'Travel Bug', 'Amazing travel packages to win.', 'running', 48000), \
+		(25, 'Fitness Challenge', 'Enter to win fitness equipment and memberships.', 'finished', 55000), \
+		(26, 'Music Lovers Raffle', 'Win instruments and concert tickets.', 'archived', 62000), \
+		(27, 'Holiday Cheer', 'Festive prizes for a joyous holiday season.', 'draft', 73000), \
+		(28, 'Techie’s Choice', 'Latest gadgets and tech gear up for grabs.', 'ready', 81000), \
+		(29, 'Chef’s Special', 'Gourmet cooking equipment and classes.', 'running', 92000), \
+		(30, 'New Year’s Eve Bash', 'Celebrate with exclusive party prizes.', 'finished', 99000), \
+		(31, 'Spring Renewal', 'Win prizes to refresh your life this spring.', 'archived', 10000);"
+
 
 view_raffles:
 	psql -U $(DB_USERNAME) -d $(DB_NAME) -c "SELECT * FROM raffles;"
