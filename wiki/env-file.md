@@ -12,6 +12,8 @@ DB_HOST=localhost       # currently the project just runs on local
 DB_PORT=5432            # default for the psql
 DB_USERNAME=<changeme>  # the username of the postgres user
 DB_PASSWORD=<changeme>  # the password of the postgres user
+
+jwt_secret=test_123     # can be a random value
 ```
 
 Please notice the `<changeme>`'s and replace them with the appropriate values.

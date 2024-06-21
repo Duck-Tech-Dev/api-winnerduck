@@ -16,23 +16,23 @@ export class RaffleService {
   }
 
   async getByID(id: string): Promise<Raffle> {
-    const data = await this.postgresService.query(`SELECT * FROM ${Table.raffles} WHERE ${RaffleColumn.raffleid}=$1`, [id]);
+    const data = await this.postgresService.query(`SELECT * FROM ${Table.raffles} WHERE ${RaffleColumn.id}=$1`, [id]);
     return data.rows[0];
   }
 
   async getAllIDs(): Promise<string[]> {
-    const data = await this.postgresService.query(`SELECT ${RaffleColumn.raffleid} FROM ${Table.raffles}`);
+    const data = await this.postgresService.query(`SELECT ${RaffleColumn.id} FROM ${Table.raffles}`);
     return data.rows;
   }
 
   async getByUserID(authorid: string): Promise<Raffle[]> {
-    const data = await this.postgresService.query(`SELECT * FROM ${Table.raffles} WHERE ${RaffleColumn.authorid}=$1`, [authorid]);
+    const data = await this.postgresService.query(`SELECT * FROM ${Table.raffles} WHERE ${RaffleColumn.author_id}=$1`, [authorid]);
     return data.rows;
   }
 
   async createRaffle(rafflename: string, form: FormQuestion[], authorid: string): Promise<Raffle> {
     const id = await this.createID();
-    const data = await this.postgresService.query(`INSERT INTO ${Table.raffles} (${RaffleColumn.raffleid}, ${RaffleColumn.rafflename}, ${RaffleColumn.form}, ${RaffleColumn.authorid}) VALUES ($1, $2, $3, $4) RETURNING *`, [id, rafflename, form, authorid]);
+    const data = await this.postgresService.query(`INSERT INTO ${Table.raffles} (${RaffleColumn.id}, ${RaffleColumn.title}, ${RaffleColumn.form}, ${RaffleColumn.author_id}) VALUES ($1, $2, $3, $4) RETURNING *`, [id, rafflename, form, authorid]);
     return data.rows[0];
   }
 

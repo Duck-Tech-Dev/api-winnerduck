@@ -1,8 +1,9 @@
 import { FormQuestion } from "src/interfaces/formQuestion";
 
 export interface Raffle {
-  raffleid: string,
-  rafflename: string,
+  id: string,
+  title: string,
   form: FormQuestion[],
-  authorid: string,
+  description: string,
+  author_id: string,
 }
