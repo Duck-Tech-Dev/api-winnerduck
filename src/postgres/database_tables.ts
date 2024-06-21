@@ -22,6 +22,7 @@ export enum RaffleColumn {
   id = 'id',
   title = 'title',
   description = 'description',
+  status = 'status',
   form = 'form',
-  author_id = 'author_id'
+  author_id = 'author_id',
 }
